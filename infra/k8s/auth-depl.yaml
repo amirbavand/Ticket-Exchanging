@@ -1,32 +1,25 @@
 apiVersion: apps/v1
-
 kind: Deployment
 metadata:
   name: auth-depl
-
 spec:
   replicas: 1
   selector:
-    matchLables:
+    matchLabels:
       app: auth
-
   template:
     metadata:
-      lables:
+      labels:
         app: auth
-
     spec:
       containers:
         - name: auth
           image: ahbavand/auth
-
 ---
 apiVersion: v1
 kind: Service
-
 metadata:
-  name: auth-Srv
-
+  name: auth-srv
 spec:
   selector:
     app: auth
