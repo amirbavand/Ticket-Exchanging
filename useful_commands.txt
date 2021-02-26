@@ -1,0 +1,2 @@
+//get the all secrets. this is actualy similar to getting the all pods
+kubectl get secrets

@@ -3,6 +3,7 @@ import { json } from "body-parser";
 import { NotFoundError } from "./errors/not-found-error";
 import "express-async-errors";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -11,7 +12,15 @@ import { signupRouter } from "./routes/signup";
 import { errorHandler } from "./middlewares/error-handler";
 
 const app = express();
+app.set("trust proxi", true);
 app.use(json());
+
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 app.use(currentUserRouter);
 app.use(signinRouter);
@@ -25,6 +34,9 @@ app.all("*", async () => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error("needing a jwt key");
+  }
   try {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth", {
       useNewUrlParser: true,
