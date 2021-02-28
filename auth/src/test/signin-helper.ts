@@ -14,6 +14,7 @@ export async function signin() {
     .expect(201);
 
   const cookie = response.get("Set-Cookie");
+  console.log(cookie);
 
   return cookie;
 }
