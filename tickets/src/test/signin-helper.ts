@@ -3,9 +3,9 @@ import { app } from "../app";
 import jwt from "jsonwebtoken";
 
 export function signin(): string[] {
-  const payload: { email: string; password: string } = {
+  const payload = {
+    id: "238029384",
     email: "test@test.com",
-    password: "password",
   };
   const token = jwt.sign(payload, process.env.JWT_KEY!);
   const session = { jwt: token };
