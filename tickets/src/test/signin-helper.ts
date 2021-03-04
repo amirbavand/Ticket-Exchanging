@@ -1,10 +1,11 @@
 import request from "supertest";
 import { app } from "../app";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 export function signin(): string[] {
   const payload = {
-    id: "238029384",
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: "test@test.com",
   };
   const token = jwt.sign(payload, process.env.JWT_KEY!);
